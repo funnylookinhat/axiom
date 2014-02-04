@@ -1,0 +1,20 @@
+/**
+ * Engine.prototype.terrain
+ */
+
+var Entity = {};
+
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+// End-points
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+
+Entity._create		= require('./entity/_create');
+Entity._update		= require('./entity/_update');
+
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+// Extensions
+// // // // // // // // // // // // // // // // // // // // // // // // // //
+
+// None
+
+module.exports = Entity;
