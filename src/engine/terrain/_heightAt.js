@@ -44,6 +44,6 @@ function lerp (v1, v2, f) {
   return v1 + (v2 - v1) * f;
 }
 
-function heightMapArrayPosition = function (engine, widthPosition, depthPosition) {
+function heightMapArrayPosition (engine, widthPosition, depthPosition) {
   return ( depthPosition * engine._terrain.width + widthPosition );
 }

@@ -8,7 +8,8 @@ var Terrain = {};
 // End-points
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 
-Terrain._init		= require('./terrain/_init');
+Terrain._init = require('./terrain/_init');
+Terrain._heightAt = require('./terrain/_heightAt');
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // Extensions

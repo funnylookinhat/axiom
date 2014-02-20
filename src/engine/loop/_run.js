@@ -11,8 +11,15 @@ module.exports = function _run (engine, callback) {
 
   async.series(
     [
+      // Entities
       function (seriesCallback) {
-        engine._update(engine, timeDelta, seriesCallback);
+        async.each(
+          engine._entities,
+          function (entity, eachCallback) {
+            engine.loop.run._entity(engine, entity, timeDelta, eachCallback);
+          },
+          seriesCallback
+        );
       }
     ],
     function (err) {

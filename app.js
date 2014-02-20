@@ -1,1 +1,1 @@
-app.js
+var engine = require('./src/engine');

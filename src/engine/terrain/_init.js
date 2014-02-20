@@ -3,6 +3,7 @@
  */
 
 var async = require('async');
+var PNG = require('png-js');
 
 module.exports = function _init (engine, callback) {
   var terrainImage = null;

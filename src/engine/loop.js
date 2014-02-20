@@ -10,12 +10,11 @@ var Loop = {};
 
 Loop._init		= require('./loop/_init');
 Loop._run		= require('./loop/_run');
-Loop._update	= require('./loop/_update');
 
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 // Extensions
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 
-// None
+Loop.run        = require('./loop/run');
 
 module.exports = Loop;

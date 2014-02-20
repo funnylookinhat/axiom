@@ -4,7 +4,7 @@
 
 var async = require('async');
 
-module.exports = function _update (engine, data, callback) {
+module.exports = function _create (engine, data, callback) {
   if( ! callback ) callback = function () { /* NADA */ };
 
   var entity = {
@@ -12,27 +12,26 @@ module.exports = function _update (engine, data, callback) {
     position: {
       x: 0.00,
       y: 0.00,
-      z: 0.00
+      z: 0.00,
+      hold: false
     },
     velocity: {
       x: 0.00,
       y: 0.00,
       z: 0.00
     },
-    model: null,
+    runTimeDelta: false,
     attributes: {}
   };
 
-  // Consider moving model to attributes - it doesn't really affect the engine at all
-  // beyond size/scale
-  if( data.model ) entity.model = data.model;
-
-  if( data.position ) {
-    entity.position.x = data.position.x;
-    entity.position.y = data.position.y;
-    entity.position.z = data.position.z;
+  if( typeof data.position !== 'undefined' ) {
+    entity.position.x = typeof data.position.x !== 'undefined' ? data.position.x : 0;
+    entity.position.y = typeof data.position.y !== 'undefined' ? data.position.y : 0;
+    entity.position.z = typeof data.position.z !== 'undefined' ? data.position.z : 0;
+    entity.position.hold = typeof data.position.hold !== 'undefined' ? data.position.hold : false;
   }
 
+  // Replace with deep clone later.
   if( data.attributes ) {
     for( i in data.attributes )
       entity.attributes[i] = data.attributes[i];
@@ -60,7 +59,7 @@ module.exports = function _update (engine, data, callback) {
       },
 
       function (seriesCallback) {
-        engine.emit('entity.created', {id: entity.id});
+        engine.emit('axiom.engine.entity.created', {id: entity.id});
       }
     ],
     callback

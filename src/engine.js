@@ -1,6 +1,10 @@
 /**
  * Axiom Engine
+ *  - Manages the automatic position updating of entities w/ terrain and objects
+ *  - Receives updates from handler
+ *  - Responds with "entity.updated" after receiving - server binds to this and sends updates to clients.
  */
+
 var _ = require('underscore');
 var PNG = require('png-js');
 var util = require('util');
@@ -14,11 +18,6 @@ var Loop = require('./engine/loop');
 var Engine = function (params) {
   this.__baseDirectory = params.baseDirectory ? params.baseDirectory : '/';
 
-  this._eventListener = params.eventListener ? params.eventListener : null;
-
-  if( this._eventListener == null ) 
-    throw "No event listener provided.";
-
   this._terrainImagePath = params.terrainImagePath;
 
   this._entities = null;
@@ -26,10 +25,11 @@ var Engine = function (params) {
   this._objects = null;
 
   // These are integer offsets ( +/- ) that dictate the engine's position in the world.
+  // 0,0 is the center of the universe.
   this._worldX = params.worldX ? params.worldX : 0;
   this._worldZ = params.worldZ ? params.worldZ : 0;
-  this._width = 5000;
-  this._depth = 5000;
+  this._width = 1000;
+  this._depth = 1000;
 
   this._loopLastTime = null;
 
@@ -70,15 +70,12 @@ Engine.prototype.init = function (data, callback) {
       },
 
       function (seriesCallback) {
-        // TODO - OBJECTS - StaticQuadTree ?
-        _this._objects = [];
-        return seriesCallback();
+        // TODO
+        // Add Engine.prototype.object with _init
       },
 
       function (seriesCallback) {
-        // Entities
-        _this._entities = [];
-        return seriesCallback();
+        _this.entity._init(_this,seriesCallback);
       },
 
       // Events
