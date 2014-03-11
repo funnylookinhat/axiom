@@ -18,10 +18,15 @@ module.exports = function _create (engine, data, callback) {
     velocity: {
       x: 0.00,
       y: 0.00,
-      z: 0.00
+      z: 0.00,
     },
+    angle: 0,
+    angleDelta: 0,
     runTimeDelta: false,
-    attributes: {}
+    attributes: {
+      model: null,  // We de-normalize anything here that will be required for render.
+      username: null 
+    }
   };
 
   if( typeof data.position !== 'undefined' ) {
@@ -30,6 +35,8 @@ module.exports = function _create (engine, data, callback) {
     entity.position.z = typeof data.position.z !== 'undefined' ? data.position.z : 0;
     entity.position.hold = typeof data.position.hold !== 'undefined' ? data.position.hold : false;
   }
+
+  entity.direction = typeof data.direction !== 'undefined' ? data.direction : 0;
 
   // Replace with deep clone later.
   if( data.attributes ) {
@@ -59,10 +66,13 @@ module.exports = function _create (engine, data, callback) {
       },
 
       function (seriesCallback) {
-        engine.emit('axiom.engine.entity.created', {id: entity.id});
+        engine.emit('entity.created', {id: entity.id});
       }
     ],
-    callback
+    function (err) {
+      if( err ) return callback(err);
+      callback(null, entity.id);
+    }
   );
 }
 

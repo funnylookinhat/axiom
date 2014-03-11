@@ -1,0 +1,10 @@
+{
+  "name": "My World Server",
+  "port": 1337,
+  "world": {
+  	"resourcesPath": "resources/",
+  	"terrainPath": "world/terrain/terrain.png",
+  	"modelPath": "character/model/",
+  	"modelDefault": "char.png"
+  }
+}

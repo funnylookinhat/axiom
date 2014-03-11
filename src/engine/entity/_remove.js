@@ -12,7 +12,7 @@ module.exports = function _remove (engine, data, callback) {
 
   delete engine._entities[data.id];
 
-  engine.emit('axiom.engine.entity.removed', {id: data.id});
+  engine.emit('entity.removed', {id: data.id});
   
   return callback();
 }

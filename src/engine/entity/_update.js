@@ -1,8 +1,8 @@
 /**
- * Engine.prototype.entity._create
+ * Engine.prototype.entity._update
  */
 
-module.exports = function _create (engine, data, callback) {
+module.exports = function _update (engine, data, callback) {
   if( ! callback ) callback = function () { /* NADA */ };
 
   var entity = engine._entities[data.id];
@@ -16,6 +16,12 @@ module.exports = function _create (engine, data, callback) {
     entity.position.z = typeof data.position.z !== 'undefined' ? data.position.z : 0;
     entity.position.hold = typeof data.position.hold !== 'undefined' ? data.position.hold : false;
   }
+  
+  if( typeof data.angle !== 'undefined' )
+    entity.angle = data.angle;
+
+  if( typeof data.angleDelta !== 'undefined' )
+    entity.angleDelta = data.angleDelta;
 
   // Replace with deep clone later.
   if( data.attributes ) {
@@ -23,7 +29,7 @@ module.exports = function _create (engine, data, callback) {
       entity.attributes[i] = data.attributes[i];
   }
 
-  engine.emit('axiom.engine.entity.updated', {id: entity.id});
+  engine.emit('entity.updated', {id: entity.id});
   
   return callback();
 }

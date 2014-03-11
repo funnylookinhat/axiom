@@ -28,7 +28,8 @@ module.exports = function _entity (engine, entity, timeDelta, callback) {
       function (seriesCallback) {
         entity.position.x += entity.velocity.x * timeDelta;
         entity.position.z += entity.velocity.z * timeDelta;
-
+        entity.angle += entity.angleDelta * timeDelta;
+        
         return seriesCallback();
       },
 

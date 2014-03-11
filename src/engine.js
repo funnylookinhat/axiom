@@ -11,10 +11,6 @@ var util = require('util');
 var async = require('async');
 var events2 = require('eventemitter2');
 
-var Terrain = require('./engine/terrain');
-var Entity = require('./engine/entity');
-var Loop = require('./engine/loop');
-
 var Engine = function (params) {
   this.__baseDirectory = params.baseDirectory ? params.baseDirectory : '/';
 
@@ -60,7 +56,7 @@ var Engine = function (params) {
 
 util.inherits(Engine, events2.EventEmitter2);
 
-Engine.prototype.init = function (data, callback) {
+Engine.prototype.init = function (callback) {
   var _this = this;
 
   async.series(
@@ -101,8 +97,8 @@ Engine.prototype._initEvents = function (callback) {
 // Extensions
 // // // // // // // // // // // // // // // // // // // // // // // // // //
 
-Engine.prototype.terrain = Terrain;
-Engine.prototype.entity = Entity;
-Engine.prototype.loop = Loop;
+Engine.prototype.terrain = require('./engine/terrain');;
+Engine.prototype.entity = require('./engine/entity');;
+Engine.prototype.loop = require('./engine/loop');;
 
 module.exports = Engine;
