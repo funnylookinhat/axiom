@@ -111,6 +111,7 @@ Server.prototype._initEvents = function (callback) {
     });
 
     // We'll need a flag to send all entities, etc.
+    // TODO - axiom.client.init event ?
 
   });
 
